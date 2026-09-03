@@ -1,10 +1,10 @@
 import type { Digest, NewsItem } from "./types";
 
 const baseUrl =
-  process.env.NEXT_PUBLIC_SUPABASE_URL ??
+  process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() ||
   "https://sxakjynxteoplnvbpumd.supabase.co";
 const publishableKey =
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim() ||
   "sb_publishable_gofdX5mzFQAW0wymQzxo8w_JRKGJ71i";
 
 async function query<T>(path: string): Promise<T> {
