@@ -6,6 +6,7 @@ const baseUrl =
 const publishableKey =
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim() ||
   "sb_publishable_gofdX5mzFQAW0wymQzxo8w_JRKGJ71i";
+const isGitHubPages = process.env.GITHUB_PAGES === "true";
 
 async function query<T>(path: string): Promise<T> {
   const response = await fetch(`${baseUrl}/rest/v1/${path}`, {
@@ -13,7 +14,7 @@ async function query<T>(path: string): Promise<T> {
       apikey: publishableKey,
       Authorization: `Bearer ${publishableKey}`,
     },
-    next: { revalidate: 300 },
+    ...(isGitHubPages ? { cache: "no-store" as const } : { next: { revalidate: 300 } }),
   });
 
   if (!response.ok) {
