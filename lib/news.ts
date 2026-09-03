@@ -14,7 +14,7 @@ async function query<T>(path: string): Promise<T> {
       apikey: publishableKey,
       Authorization: `Bearer ${publishableKey}`,
     },
-    ...(isGitHubPages ? { cache: "no-store" as const } : { next: { revalidate: 300 } }),
+    ...(isGitHubPages ? {} : { next: { revalidate: 300 } }),
   });
 
   if (!response.ok) {
