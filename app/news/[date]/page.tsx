@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DigestView } from "@/components/digest-view";
-import { getDigestByDate } from "@/lib/news";
+import { getArchive, getDigestByDate } from "@/lib/news";
 
 type Props = { params: Promise<{ date: string }> };
+
+export async function generateStaticParams() {
+  const digests = await getArchive();
+  return digests.map((digest) => ({ date: digest.digest_date }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { date } = await params;
