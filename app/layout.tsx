@@ -8,7 +8,13 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const wechatQrUrl = process.env.NEXT_PUBLIC_WECHAT_QR_URL?.trim();
+  const isGitHubPages = process.env.GITHUB_PAGES === "true";
+  const basePath = isGitHubPages ? "/bytebrief" : "";
+  const localQr = `${basePath}/assets/images/qrcode_for_gh_b6ee187cb83c_258.jpg`;
+  const localBadge = `${basePath}/assets/images/gongzhonghao.png`;
+  const wechatQrUrl = process.env.NEXT_PUBLIC_WECHAT_QR_URL?.trim() || localQr;
+  const wechatBadgeUrl = process.env.NEXT_PUBLIC_WECHAT_BADGE_URL?.trim() || localBadge;
+  const wechatAccountUrl = process.env.NEXT_PUBLIC_WECHAT_ACCOUNT_URL?.trim();
 
   return (
     <html lang="zh-CN">
@@ -23,20 +29,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </nav>
         </header>
         {children}
+
+        <a
+          className="wechat-float"
+          href={wechatAccountUrl || wechatQrUrl}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="关注 ByteBrief 公众号"
+        >
+          <img className="wechat-badge" src={wechatBadgeUrl} alt="公众号" />
+          <span className="wechat-qr-popover">
+            <img src={wechatQrUrl} alt="ByteBrief 公众号二维码" loading="lazy" />
+            <small>微信扫码关注</small>
+          </span>
+        </a>
+
         <footer>
           <div className="footer-copy">
             <span>ByteBrief</span>
             <span>每天几分钟，读懂科技变化。</span>
           </div>
-          {wechatQrUrl && (
-            <div className="wechat-follow">
-              <div>
-                <strong>公众号</strong>
-                <span>扫码关注 ByteBrief</span>
-              </div>
-              <img src={wechatQrUrl} alt="ByteBrief 公众号二维码" width="92" height="92" loading="lazy" />
-            </div>
-          )}
         </footer>
       </body>
     </html>
