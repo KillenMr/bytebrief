@@ -1,4 +1,5 @@
 import type { Digest, NewsItem } from "@/lib/types";
+import { CodexResetStatus } from "@/components/codex-reset-status";
 
 const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
   year: "numeric",
@@ -82,33 +83,52 @@ export function DigestView({ digest }: { digest: Digest }) {
         </div>
       </header>
 
+      <CodexResetStatus />
+
       <div className="news-list">
         {items.map((item, index) => {
           const pinned = isGitHubTrending(item);
 
           return (
-            <section className={`news-item${pinned ? " pinned-item" : ""}`} key={item.id}>
-              <div className="news-index">{String(index + 1).padStart(2, "0")}</div>
+            <section
+              className={`news-item${pinned ? " pinned-item" : ""}`}
+              key={item.id}
+            >
+              <div className="news-index">
+                {String(index + 1).padStart(2, "0")}
+              </div>
               <div className="news-content">
-                <div className="news-tags">
-                  {pinned && <span className="pinned-tag">PIN</span>}
-                  {item.category && (
-                    <span className="category-tag">
-                      <BrandIcon label={item.category} />
-                      {item.category}
-                    </span>
-                  )}
-                  {item.is_rumor && <span className="rumor">传闻</span>}
+                <div className="news-heading">
+                  <h2>
+                    <a
+                      className="news-title-link"
+                      href={item.source_url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {item.title}
+                    </a>
+                    <a
+                      className="source-link"
+                      href={item.source_url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {item.source_name} <span aria-hidden="true">↗</span>
+                    </a>
+                  </h2>
+                  <div className="news-tags">
+                    {pinned && <span className="pinned-tag">置顶</span>}
+                    {item.category && (
+                      <span className="category-tag">
+                        <BrandIcon label={item.category} />
+                        <span>{item.category}</span>
+                      </span>
+                    )}
+                    {item.is_rumor && <span className="rumor">传闻</span>}
+                  </div>
                 </div>
-                <h2>
-                  <a className="news-title-link" href={item.source_url} target="_blank" rel="noreferrer">
-                    {item.title}
-                  </a>
-                </h2>
                 <p>{item.summary}</p>
-                <a className="source-link" href={item.source_url} target="_blank" rel="noreferrer">
-                  {item.source_name} <span aria-hidden="true">↗</span>
-                </a>
               </div>
             </section>
           );

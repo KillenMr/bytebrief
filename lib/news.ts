@@ -57,3 +57,26 @@ export async function getArchive(): Promise<Omit<Digest, "items">[]> {
     "tech_daily_digests?select=id,digest_date,title,intro,status,published_at&status=eq.published&order=digest_date.desc&limit=30",
   );
 }
+
+export async function getPublishedDigestCount(): Promise<number> {
+  const response = await fetch(
+    `${baseUrl}/rest/v1/tech_daily_digests?select=id&status=eq.published`,
+    {
+      method: "HEAD",
+      headers: {
+        apikey: publishableKey,
+        Authorization: `Bearer ${publishableKey}`,
+        Prefer: "count=exact",
+      },
+      ...(isGitHubPages ? {} : { next: { revalidate: 300 } }),
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(`Supabase count request failed: ${response.status}`);
+  }
+
+  const contentRange = response.headers.get("content-range");
+  const total = contentRange?.split("/").at(-1);
+  return total && total !== "*" ? Number(total) : 0;
+}
