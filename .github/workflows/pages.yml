@@ -38,6 +38,13 @@ jobs:
           GITHUB_PAGES: "true"
         run: npm run build
 
+      - name: Copy static assets
+        run: |
+          if [ -d assets ]; then
+            mkdir -p out/assets
+            cp -R assets/. out/assets/
+          fi
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
