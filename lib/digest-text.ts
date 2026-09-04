@@ -5,7 +5,10 @@ export function digestToPlainText(digest: Digest | null): string {
 
   const items = [...digest.items]
     .sort((a, b) => a.sort_order - b.sort_order)
-    .map((item) => `${item.title}\n${item.summary}`);
+    .flatMap((item, index) => [
+      `${String(index + 1).padStart(2, "0")} ${item.title}`,
+      item.summary,
+    ]);
 
-  return [digest.title, ...items].join("\n\n");
+  return [digest.title, ...items].join("\n");
 }
