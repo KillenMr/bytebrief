@@ -1,5 +1,6 @@
 import { DigestView } from "@/components/digest-view";
 import { FeedSwitcher } from "@/components/feed-switcher";
+import { digestToPlainText } from "@/lib/digest-text";
 import { getLatestDigest } from "@/lib/news";
 
 function EmptyState({ type }: { type: string }) {
@@ -21,6 +22,8 @@ export default async function HomePage() {
   return (
     <main>
       <FeedSwitcher
+        developerCopyText={digestToPlainText(developerDigest)}
+        techCopyText={digestToPlainText(techDigest)}
         developer={
           developerDigest ? (
             <DigestView digest={developerDigest} />
