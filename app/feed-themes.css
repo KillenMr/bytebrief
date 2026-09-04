@@ -1,0 +1,298 @@
+:root {
+  --developer-accent: #73d394;
+  --developer-soft: rgba(115, 211, 148, .09);
+  --developer-border: rgba(115, 211, 148, .38);
+  --tech-accent: #72b7ff;
+  --tech-soft: rgba(114, 183, 255, .09);
+  --tech-border: rgba(114, 183, 255, .38);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --developer-accent: #287b45;
+    --developer-soft: rgba(40, 123, 69, .075);
+    --developer-border: rgba(40, 123, 69, .35);
+    --tech-accent: #256aa8;
+    --tech-soft: rgba(37, 106, 168, .075);
+    --tech-border: rgba(37, 106, 168, .35);
+  }
+}
+
+.feed-switch-wrap {
+  width: min(900px, calc(100% - 24px));
+  margin: 14px auto -2px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+}
+
+.feed-switch-heading {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.feed-switch-heading > span {
+  color: var(--bright);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+}
+
+.feed-switch-heading > span::before {
+  content: "> ";
+  color: var(--muted);
+}
+
+.feed-switch-heading small {
+  color: var(--muted);
+  font-size: .62rem;
+}
+
+.feed-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 6px;
+  min-width: min(410px, 56%);
+}
+
+.feed-option {
+  appearance: none;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  text-align: left;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: border-color .12s ease, background-color .12s ease, color .12s ease, transform .12s ease;
+}
+
+.feed-option:hover {
+  color: var(--bright);
+  border-color: var(--line-strong);
+}
+
+.feed-option:active {
+  transform: translateY(1px);
+}
+
+.feed-option-mark {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border: 1px solid currentColor;
+  box-shadow: 0 0 0 3px transparent;
+}
+
+.feed-option-copy {
+  display: grid;
+  min-width: 0;
+}
+
+.feed-option-copy strong {
+  font-size: .76rem;
+  line-height: 1.35;
+}
+
+.feed-option-copy small {
+  margin-top: 1px;
+  color: inherit;
+  opacity: .68;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: .5rem;
+  letter-spacing: .045em;
+}
+
+.feed-option--developer.active {
+  color: var(--developer-accent);
+  background: var(--developer-soft);
+  border-color: var(--developer-border);
+  box-shadow: inset 3px 0 0 var(--developer-accent);
+}
+
+.feed-option--developer.active .feed-option-mark {
+  background: var(--developer-accent);
+  box-shadow: 0 0 0 3px var(--developer-soft);
+}
+
+.feed-option--tech.active {
+  color: var(--tech-accent);
+  background: var(--tech-soft);
+  border-color: var(--tech-border);
+  box-shadow: inset 3px 0 0 var(--tech-accent);
+}
+
+.feed-option--tech.active .feed-option-mark {
+  background: var(--tech-accent);
+  box-shadow: 0 0 0 3px var(--tech-soft);
+}
+
+.feed-panel--developer {
+  --accent: var(--developer-accent);
+  --soft-accent: var(--developer-soft);
+}
+
+.feed-panel--tech {
+  --accent: var(--tech-accent);
+  --soft-accent: var(--tech-soft);
+}
+
+.feed-panel--developer .digest-header {
+  border-left: 2px solid var(--developer-accent);
+}
+
+.feed-panel--tech .digest-header {
+  border-left: 2px solid var(--tech-accent);
+}
+
+.archive-page--combined {
+  padding-top: 18px;
+}
+
+.archive-days {
+  border-top: 1px solid var(--line-strong);
+}
+
+.archive-day {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 12px;
+  padding: 11px 4px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.archive-day-meta {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  padding-top: 6px;
+}
+
+.archive-day-meta .archive-index {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-weight: 700;
+}
+
+.archive-day-meta time {
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: .64rem;
+}
+
+.archive-day-feeds {
+  display: grid;
+  gap: 6px;
+}
+
+.archive-feed-card {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) 18px;
+  gap: 8px;
+  align-items: center;
+  min-height: 44px;
+  padding: 7px 9px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.archive-feed-card:hover {
+  border-color: var(--line-strong);
+}
+
+.archive-feed-card strong {
+  color: var(--ink);
+  font-size: .77rem;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.archive-feed-label {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: .58rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.archive-feed-card--developer {
+  border-left: 3px solid var(--developer-accent);
+}
+
+.archive-feed-card--developer .archive-feed-label,
+.archive-feed-card--developer:hover strong,
+.archive-feed-card--developer:hover .archive-arrow {
+  color: var(--developer-accent);
+}
+
+.archive-feed-card--developer:hover {
+  background: var(--developer-soft);
+  border-color: var(--developer-border);
+}
+
+.archive-feed-card--tech {
+  border-left: 3px solid var(--tech-accent);
+}
+
+.archive-feed-card--tech .archive-feed-label,
+.archive-feed-card--tech:hover strong,
+.archive-feed-card--tech:hover .archive-arrow {
+  color: var(--tech-accent);
+}
+
+.archive-feed-card--tech:hover {
+  background: var(--tech-soft);
+  border-color: var(--tech-border);
+}
+
+@media (max-width: 640px) {
+  .feed-switch-wrap {
+    margin-top: 10px;
+    padding: 8px;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .feed-switch-heading small {
+    display: none;
+  }
+
+  .feed-switch {
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .feed-option {
+    padding: 8px;
+  }
+
+  .feed-option-copy small {
+    display: none;
+  }
+
+  .archive-day {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .archive-day-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0;
+  }
+
+  .archive-feed-card {
+    grid-template-columns: 72px minmax(0, 1fr) 16px;
+    gap: 6px;
+  }
+}
