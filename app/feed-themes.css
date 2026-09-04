@@ -19,6 +19,7 @@
 }
 
 .feed-switch-wrap {
+  position: relative;
   width: min(900px, calc(100% - 24px));
   margin: 14px auto -2px;
   padding: 10px;
@@ -134,6 +135,25 @@
 .feed-option--tech.active .feed-option-mark {
   background: var(--tech-accent);
   box-shadow: 0 0 0 3px var(--tech-soft);
+}
+
+.feed-copy-notice {
+  position: absolute;
+  right: 10px;
+  top: calc(100% + 6px);
+  z-index: 10;
+  padding: 4px 7px;
+  color: var(--bright);
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: .56rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+}
+
+.feed-copy-notice::before {
+  content: "✓ ";
+  color: var(--developer-accent);
 }
 
 .feed-panel--developer {
@@ -277,6 +297,10 @@
 
   .feed-option-copy small {
     display: none;
+  }
+
+  .feed-copy-notice {
+    right: 8px;
   }
 
   .archive-day {
