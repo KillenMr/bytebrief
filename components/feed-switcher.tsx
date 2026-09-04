@@ -1,6 +1,35 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
+
+const wrapStyle: CSSProperties = {
+  width: "min(900px, calc(100% - 24px))",
+  margin: "10px auto -6px",
+  display: "flex",
+  justifyContent: "flex-end",
+};
+
+const groupStyle: CSSProperties = {
+  display: "inline-flex",
+  gap: 4,
+  padding: 3,
+  border: "1px solid var(--line)",
+  background: "var(--panel)",
+};
+
+function buttonStyle(active: boolean): CSSProperties {
+  return {
+    appearance: "none",
+    border: active ? "1px solid var(--accent)" : "1px solid transparent",
+    background: active ? "var(--soft-accent)" : "transparent",
+    color: active ? "var(--accent)" : "var(--muted)",
+    padding: "4px 9px",
+    fontFamily: '"SFMono-Regular", Consolas, monospace',
+    fontSize: ".64rem",
+    fontWeight: active ? 700 : 500,
+    cursor: "pointer",
+  };
+}
 
 export function FeedSwitcher({
   developer,
@@ -13,13 +42,13 @@ export function FeedSwitcher({
 
   return (
     <>
-      <div className="feed-switch-wrap">
-        <div className="feed-switch" role="tablist" aria-label="资讯类型">
+      <div style={wrapStyle}>
+        <div style={groupStyle} role="tablist" aria-label="资讯类型">
           <button
             type="button"
             role="tab"
             aria-selected={feed === "developer"}
-            className={feed === "developer" ? "active" : ""}
+            style={buttonStyle(feed === "developer")}
             onClick={() => setFeed("developer")}
           >
             开发者资讯
@@ -28,7 +57,7 @@ export function FeedSwitcher({
             type="button"
             role="tab"
             aria-selected={feed === "tech"}
-            className={feed === "tech" ? "active" : ""}
+            style={buttonStyle(feed === "tech")}
             onClick={() => setFeed("tech")}
           >
             科技资讯
