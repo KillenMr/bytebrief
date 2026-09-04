@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DigestView } from "@/components/digest-view";
 import { FeedSwitcher } from "@/components/feed-switcher";
+import { digestToPlainText } from "@/lib/digest-text";
 import { getArchive, getDigestByDate } from "@/lib/news";
 
 type Props = { params: Promise<{ date: string }> };
@@ -48,6 +49,8 @@ export default async function DigestPage({ params }: Props) {
   return (
     <main>
       <FeedSwitcher
+        developerCopyText={digestToPlainText(developerDigest)}
+        techCopyText={digestToPlainText(techDigest)}
         developer={developerDigest ? <DigestView digest={developerDigest} /> : unavailable}
         tech={techDigest ? <DigestView digest={techDigest} /> : unavailable}
       />
