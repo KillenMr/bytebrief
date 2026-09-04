@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getArchive } from "@/lib/news";
 import "./globals.css";
+import "./feed-themes.css";
 
 export const metadata: Metadata = {
   title: "ByteBrief｜每日科技速览",
