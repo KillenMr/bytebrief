@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getPublishedDigestCount } from "@/lib/news";
+import { getArchive } from "@/lib/news";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +14,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const localQr = `${basePath}/assets/images/qrcode_for_gh_b6ee187cb83c_258.jpg`;
   const wechatQrUrl = process.env.NEXT_PUBLIC_WECHAT_QR_URL?.trim() || localQr;
   const wechatAccountUrl = process.env.NEXT_PUBLIC_WECHAT_ACCOUNT_URL?.trim();
-  const digestCount = await getPublishedDigestCount();
+  const [developerDigests, techDigests] = await Promise.all([
+    getArchive("developer"),
+    getArchive("tech"),
+  ]);
+  const digestCount = new Set([
+    ...developerDigests.map((digest) => digest.digest_date),
+    ...techDigests.map((digest) => digest.digest_date),
+  ]).size;
 
   return (
     <html lang="zh-CN">
